@@ -1,0 +1,8 @@
+def expand(lst):
+# >>> chkParantheses('def function(arg1, arg2)):')
+def chkParantheses(s):
+def partition(t, n):
+def merge(t1,t2):
+def listCalculator(t1,t2,op):
+def sumall(lst):
+def compare(t1, t2):

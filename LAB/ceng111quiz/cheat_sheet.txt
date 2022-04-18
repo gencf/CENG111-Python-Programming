@@ -1,0 +1,204 @@
+File Commands
+ls - directory listing
+ls -al - formatted listing with hidden files
+cd dir - change directory to dir
+cd - change to home
+pwd - show current directory
+mkdir dir - create a directory dir
+rm file - delete file
+rm -r dir - delete directory dir
+rm -f file - force remove file
+rm -rf dir - force remove directory dir *
+cp file1 file2 - copy file1 to file2
+cp -r dir1 dir2 - copy dir1 to dir2; create dir2 if not exists
+mv file1 file2 - rename or move file1 to file2 
+if file2 is an existing directory, moves file1 into file2
+ln -s file link - create symbolic link link to file
+stat file - display file attributes
+touch file - create or update file
+cat > file - places standard input into file
+more file - output the contents of file
+head file - output the first 10 lines of file
+tail file - output the last 10 lines of file
+tail -f file - output the contents of file as it grows, starting with the last 10 lines
+chmod octal file - change the permissions of file 
+to octal, which can be found separately for user, 
+group, and world by adding:
+-	4 - read (r)
+-	2 - write (w)
+-	1 - execute (x)
+e.g.:
+chmod 777 - read, write, execute for all
+chmod 755 - rwx for owner, rx for group and world
+For more options, see man chmod
+chown accountname file - change the owner of the file called file to accountname user
+
+Process Management
+ps - display your currently active processes
+pstree - display your currently active processes in hierarchical order from parent child
+top - display all running processes
+kill pid - kill process id pid
+killall proc - kill all processes named proc *
+bg - lists stopped or background jobs; resume a stopped job in the background
+fg - brings the most recent job to foreground
+fg n - brings job n to the foreground
+fuser file - show processes using file
+
+SSH
+ssh user@host - connect to host as user
+ssh -p port user@host - connect to host on port port as user
+ssh-copy-id user@host - add your key to host for user to enable a keyed or passwordless login
+ssh -L localport:remotehost:remoteport user@host - create a tunnel to connect to remotehost’s remoteport from localport
+e.g.: ssh -L 8080:www.ceng.metu.edu.tr:80 e1XXXXXX@login.ceng.metu.edu.tr
+point web browser to http://localhost:8080/ to connect to www.ceng.metu.edu.tr
+sftp - used for interactive file transmission
+put file - transfer file from local computer to the remote computer
+get file - transfer file from the remote computer to local computer
+
+Searching
+grep pattern files - search for pattern in files
+grep -r pattern dir - search recursively for pattern in dir
+command | grep pattern - search for pattern in the output of command
+updatedb - create or update the database of files on all file systems attached to the linux root directory
+locate file - find all instances of file using database index. This assumes updatedb has already been used
+find dir -name fname - starting with the directory called dir, look for the file called fname
+Example:
+find / -name ceng111.pdf - starting with the root directory, look for the file called ceng111.pdf
+
+System Info
+date - show the current date and time
+cal - show this month's calendar
+uptime - show the system load
+which commandname - show which program is executed by a given commandname
+whoami - who you are logged in as
+who - list the login name, terminal name and login time for each logged in user
+finger - display the list of the users on the system
+finger user - display information about user on the system
+uname -a - show kernel information
+cat /proc/cpuinfo - cpu information
+cat /proc/meminfo - memory information
+lshw - list all hardware components
+lsof - display list of open files
+man command - show the manual for command
+man -k subject - list manual pages for subject similar to apropos subject
+df - show disk usage
+du - show directory space usage
+quota - manage disk quota
+free - show memory and swap usage
+whereis app - show possible locations of app
+which app - show which app will be run by default
+env - display, set or remove environment variables 
+set - manipulate shell variables and functions
+
+Compression
+tar -cf file.tar files - create a tar named file.tar containing files
+tar -xf file.tar - extract the files from file.tar
+tar -czf file.tar.gz files - create a tar with Gzip compression
+tar -xzf file.tar.gz - extract a tar using Gzip
+tar -cjf file.tar.bz2 - create a tar with Bzip2 compression
+tar -xjf file.tar.bz2 - extract a tar using Bzip2
+gzip file - compress file and renames it to file.gz
+gzip -d file.gz - decompress file.gz back to file
+bzip2 -k file - compress file as file.bz2 and keep the original file
+bunzip2 file.bz2 - decompress file.bz2 back to file
+
+Installation
+install from source:
+./configure
+make
+make install
+dpkg -i pkg.deb - install a package (Debian) 
+see also apt-get
+rpm -Uvh pkg.rpm - install a package (RPM)
+apt-get install pkg - install a package (Debian)
+this is a higher level tool compared to dpkg
+E.g.: apt-get install gcc - install gnu c compiler
+aptitude search pattern- search for packages matching pattern
+synaptic -graphical management of software packages
+
+Starting & Stopping
+shutdown -h now - shutdown the system now and do not reboot
+halt - stop all processes - same as above
+shutdown -r 5 - shutdown the system in 5 minutes and reboot
+shutdown -r now - shutdown the system now and reboot
+reboot  - stop all processes and then reboot - same as above
+startx  - start the X system
+
+User Administration
+adduser accountname - create a new user called accountname
+passwd accountname - give accountname a new password
+login accountname - login user called accountname after a signoff or to change the current user
+su - log in as superuser from current login
+sudo - allow a permitted user to execute a command as the superuser or another user
+exit - log out of current session. use after su to relinquish superuser rights
+
+Mounting
+mount -t iso9660 /dev/cdrom /mnt/cdrom - mount the device cdrom and call it cdrom under the /mnt directory
+mount -t vfat /dev/hda1 /mnt/cdrive - mount hard disk “a” as a VFAT file system and call it cdrive under the /mnt
+mount -t ntfs /dev/hda1 /mnt/windows - mount hard disk “a” as a NTFS file system and call it windows under /mnt
+umount /mnt/cdrom - unmount the cdrom
+
+Miscellaneous
+wc -[b/w/l] - count [c]bytes / [w]ords / [l]ines
+sort file - sort file
+cmp file1 file2 - compare files byte to byte
+comm file1 file2 - compare sorted files
+diff file1 file2 - compare files line by line
+md5sum file - compute md5 checksum of file
+unix2dos - convert text files from/to linux format
+echo - display output
+e.g.: echo $HOME - displays user’s home directory path
+history - display the list of commands executed previously
+clear - clear the terminal screen
+sleep time - delay for a specified amount of time in seconds
+command & - execute command in background
+Example: sleep 2 &
+command --help - used as a switch to any command to display its help page
+e.g.: ls -help
+fdisk - modify the partition table
+grub - GRand Unified Bootloader, boot loader program
+
+
+Shortcuts
+Ctrl+C - halt the current command
+Ctrl+Z - stop the current command, resume with fg in the foreground or bg in the background
+Ctrl+D - log out of current session, similar to exit
+Ctrl+W - erase one word in the current line
+Ctrl+U - erase the whole line
+Ctrl+R - bring up a recent command
+!! - repeats the last command
+Tab - auto complete the command if there is only one option, or else show all the available options
+Shift+PgUp - scroll the command history (press Enter to execute a historical command)
+Shift+PgDown - scroll the command history back
+Alt+Tab - walk through windows (Alt+Shift+Tab to walk backwards)
+Ctrl+Tab - walk through desktops (Ctrl+Shift+Tab to walk backwards)
+Ctrl+Alt+Backspace - stop X server (some systems use Ctrl+Alt+Esc)
+Ctrl+Alt+F1 - switch to text mode console 1
+Ctrl+Alt+Fn - switch to text mode console n (n=1..6)
+Ctrl+Alt+F7 - switch back to graphic terminal 1
+Ctrl+Alt+Fn - switch back to graphic terminal n (n=7..12)
+MiddleMouseButton - paste the highlighted text
+
+Important Directories
+. - refers to current directory
+.. - refers to parent directory
+~ - refers to current user’s home directory
+/ - the root of the file system, all other files and directories use this as a starting point
+/bin/ - binaries directory - contains common executables for system operation
+/boot/ - directory containing persistent boot information and executables, such as kernel, and initrd, grub.conf
+/dev/ - devices directory
+/dev/fd0 - block device that refers to the first floppy drive
+/dev/sda - block device that refers to the first hard drive
+/dev/lp0 - block device that refers to the first parallel port (LPT1 in Windows)
+/etc/ - configuration files directory
+/home/ - the mount point or directory where user’s personal data is stored
+/lib/ - library files directory
+/mnt/ - mount point directory
+/media/ - mount point directory
+/proc/ - kernel process information directory 
+/root/ - root user’s home directory
+/sbin/ - system binaries directory
+/tmp/ - temporary directory
+/usr/ - this directory is used as a system resource. many times, libraries, applications, and source code are installed in this folder. kernel compiling usually takes place in the /usr/src/linux/ subdirectory
+/var/ - log files are generally stored in this directory or log subdirectory
+
